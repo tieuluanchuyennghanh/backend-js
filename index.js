@@ -24,7 +24,7 @@ app.listen(port, () =>{
 const user = require("./models/user");
 const product= require("./models/product");
 
-app.use("/users", userRouter);
+app.use("/auth", userRouter);
 app.post('/themTaiKhoan',function(req,res){
     var userimport =new user( {  
         username: req.body.username,
