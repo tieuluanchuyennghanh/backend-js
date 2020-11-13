@@ -3,8 +3,8 @@ const Product=require("../models/product");
 const Cart=require("../models/cart")
 const { findById } = require("../models/user");
 const Validator=require("validatorjs")
-
-
+var jwt = require('jsonwebtoken');
+let secret = process.env.JWT_SECRET
 //code here
 module.exports.postRegister = async function (req, res){
     let rules = {
@@ -27,5 +27,13 @@ module.exports.postRegister = async function (req, res){
         });
     }
     var user = await User.create(req.body);
-    res.status(201).json({ success: true, data: { user } });
+    let access_token = jwt.sign({
+        id:user._id,
+        email:user.email
+      },secret, { expiresIn: 60 * 60 });
+    // res.status(201).json({ success: true, data: { user } });
+    return res.status(201).json({
+        message:"Create user successfully",
+        access_token
+    })
 }
