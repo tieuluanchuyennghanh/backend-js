@@ -5,4 +5,5 @@ const router=express.Router();
 
 router.post("/addProduct",productController.postProduct);
 router.get("/all",productController.getAllProduct);
+router.get("/:id_product",bookController.getProduct);
 module.exports = router;

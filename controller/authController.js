@@ -37,3 +37,47 @@ module.exports.postRegister = async function (req, res){
         access_token
     })
 }
+
+module.exports.postLogin = async (req, res) => {
+    const { email, password, groupid } = req.body;
+    const userByEmail = await User.findOne({ email });
+
+    if (userByEmail === null) {
+        return res
+            .status(202)
+            .json({ success: false, msg: "Username không tồn tại" });
+    } else {
+        if (password != userByEmail.password) {
+            return res
+                .status(202)
+                .json({ success: false, msg: "Mật khẩu không đúng" });
+        // }
+        // if (userByEmail.groupid !== groupid) {
+        //     return res
+        //         .status(202)
+        //         .json({ success: false, msg: "Lỗi quyền truy cập" });
+        // }
+        // if (userByUsername.status === 0) {
+        //     return res.status(202).json({
+        //         success: false,
+        //         msg: "Lỗi truy cập. Tài khoản đã bị khóa",
+        //     });
+        // }
+    }
+}
+
+    const payload = {
+        user: {
+            id: userByEmail.id,
+            email: userByEmail.email,
+            // role: userByEmail.role,
+        },
+    };
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "2d",
+    });
+    res.status(201).json({
+        success: true,
+        data: { accessToken, user: userByEmail },
+    });
+};
