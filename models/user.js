@@ -6,6 +6,25 @@ const userSchema=new mongoose.Schema({
     name: String,
     address: String,
     phone: String,
-    groupid: String
-})
-module.exports =  mongoose.model('user', userSchema)
+    groupid: String,
+    status: {type: Number, default:1},
+    comments:[
+        {
+            author:{type:mongoose.Types.ObjectId, ref:"User"},
+            content:String,
+            rating:Number,
+            createdAt:Date,
+        },
+    ],
+    cart:[
+            {
+                product:{type:mongoose.Types.ObjectId, ref:"Product"},
+                amount:Number,
+            },
+    ],
+},
+    {timestamps: true}
+);
+
+var User=mongoose.model("User", userSchema, "users")
+module.exports= User;

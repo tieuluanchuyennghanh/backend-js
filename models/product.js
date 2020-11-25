@@ -13,4 +13,6 @@ const productSchema=new mongoose.Schema({
     detail: String,
     groupid: String
 })
-module.exports =  mongoose.model('product', productSchema)
+
+const product=mongoose.model("Product", productSchema,"products");
+module.exports =  product;
