@@ -27,15 +27,15 @@ module.exports.postRegister = async function (req, res){
         });
     }
     var user = await User.create(req.body);
-    let access_token = jwt.sign({
-        id:user._id,
-        email:user.email
-      },secret, { expiresIn: 60 * 60 });
-    // res.status(201).json({ success: true, data: { user } });
-    return res.status(201).json({
-        message:"Create user successfully",
-        access_token
-    })
+    // let access_token = jwt.sign({
+    //     id:user._id,
+    //     email:user.email
+    //   },secret, { expiresIn: 60 * 60 });
+     res.status(201).json({ success: true, data: { user } });
+    // return res.status(201).json({
+    //     message:"Create user successfully",
+    //     access_token
+    // })
 }
 
 module.exports.postLogin = async (req, res) => {
