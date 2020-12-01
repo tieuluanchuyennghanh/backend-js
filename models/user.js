@@ -6,7 +6,7 @@ const userSchema=new mongoose.Schema({
     name: String,
     address: String,
     phone: String,
-    groupid: String,
+    groupid: Number,
     status: {type: Number, default:1},
     comments:[
         {

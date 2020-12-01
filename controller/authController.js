@@ -1,6 +1,8 @@
 const User=require("../models/user");
 const Product=require("../models/product");
 const Cart=require("../models/cart")
+const Order=require("../models/order");
+const ObjectId=require("mongodb").ObjectId;
 const { findById } = require("../models/user");
 const Validator=require("validatorjs")
 var jwt = require('jsonwebtoken');
@@ -81,3 +83,57 @@ module.exports.postLogin = async (req, res) => {
         data: { accessToken, user: userByEmail },
     });
 };
+
+module.exports.getCart = async (req, res) => {
+    const cart = await Cart.findOne({ userID: req.user.id });
+
+    return res.json(cart);
+};
+module.exports.addToCart=async(req,res)=>{
+    const {productId,amount}=req.body;
+    let user=req.user;
+    var duplicate=false;
+
+    const product=await Product.findById(productId);
+    const cart=await Cart.find({userID: user.id});
+    var totalPrice=0;
+    cart[0].productList.array.forEach(element => {
+        if(element.productId._id==productId){
+            element.amount=parseInt(element.amount)+parseInt(amount);
+            dupticate=true;
+        }
+        totalPrice+=parseInt(element.amount*element.productId.price);
+        
+    });
+    let update;
+    if(duplicate){
+        update=await Cart.findOneAndUpdate(
+            {userID:user.id},
+            {
+                productList:cart[0].productList,
+                totalPrice:totalPrice,
+            }
+        );
+    }
+    else{
+        update=await Cart.findOneAndUpdate(
+            {userID:user.id},
+            {
+            $push:{
+                productList:{
+                    amount:amount,
+                    productId:product,
+                },
+            },
+            $inc: {
+                totalPrice:parseInt(amount*product.price)
+            },
+        }
+        );
+    }
+    const result=await Cart.find({userID:user.id});
+    if(update)
+    res.status(201).json({success:true,date:result});
+};
+
+

@@ -10,9 +10,8 @@ const productSchema=new mongoose.Schema({
     categoryID: mongoose.Schema.Types.ObjectId,
     seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     images: String,
-    Createby: String,
+    previewImgs: Array,
     detail: String,
-    groupid: String
 })
 productSchema.plugin(mongoosePaginate);
 const product=mongoose.model("Product", productSchema,"products");
