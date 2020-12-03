@@ -6,8 +6,8 @@ const utils = require("../utils/utils");
 
 
 router.post("/register",authController.postRegister);
-router.get("/user", authController.getUserById);
+// router.get("/user", authController.getUserById);
 router.post("/login",authController.postLogin);
 router.post("/add-to-cart", utils.requireRole(1), authController.addToCart);
-router.get("/cart", utils.requireRole(1), userController.getCart);
+router.get("/cart", utils.requireRole(1), authController.getCart);
 module.exports = router;
