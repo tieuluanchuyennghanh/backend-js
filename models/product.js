@@ -1,4 +1,5 @@
 const mongoose=require('mongoose');
+const mongoosePaginate = require("mongoose-paginate");
 
 const productSchema=new mongoose.Schema({
     name: String,
@@ -9,8 +10,9 @@ const productSchema=new mongoose.Schema({
     categoryID: mongoose.Schema.Types.ObjectId,
     seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     images: String,
-    Createby: String,
+    previewImgs: Array,
     detail: String,
-    groupid: String
 })
-module.exports =  mongoose.model('product', productSchema)
+productSchema.plugin(mongoosePaginate);
+const product=mongoose.model("Product", productSchema,"products");
+module.exports =  product;
