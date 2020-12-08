@@ -18,6 +18,7 @@
     "mongoose": "^5.10.12",
     "mongoose-paginate": "^5.0.3",
     "multer": "^1.4.2",
+    "nodemailer": "^6.4.16",
     "validatorjs": "^3.21.0"
   }
 }

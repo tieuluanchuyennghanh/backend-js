@@ -5,5 +5,6 @@ const router=express.Router();
 
 router.post("/addProduct",productController.postProduct);
 router.get("/all",productController.getAllProduct);
-router.get("/:id_product",bookController.getProduct);
+router.get("/:id_product",productController.getProduct);
+router.post("/deleteProduct",productController.deleteProduct);
 module.exports = router;

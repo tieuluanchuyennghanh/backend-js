@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose= require('mongoose');
+var nodemailer = require('nodemailer');
+mongoose.set('useFindAndModify', false);
 const bodyParser = require('body-parser')
 const app = express();
 const cors=require("cors");

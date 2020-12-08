@@ -22,3 +22,9 @@ module.exports.getProduct=async(req,res)=>{
     const product= await Product.findById(idProduct).populate("seller");
     return res.json(product);
 }
+module.exports.deleteProduct=async(req,res)=>{
+    let {_id}=req.body;
+    const product=await Product.findByIdAndDelete(_id)
+    if(product) return res.json("xoa thanh cong")
+    else return res.json("xoa that bai")
+}
