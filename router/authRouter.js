@@ -18,4 +18,5 @@ router.post("/update-cart",authController.updateCart);
 router.get("/order/add-oder",utils.requireRole(1),authController.addOrder);
 router.get("/orders",utils.requireRole(1),authController.orders);
 router.put("/orders/:/idOrder/status",utils.requireRole(1),authController.cancelOrder);
+router.post("/sendmail",authController.postEmail);
 module.exports = router;

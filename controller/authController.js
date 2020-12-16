@@ -5,6 +5,7 @@ const Order=require("../models/order");
 const ObjectId=require("mongodb").ObjectId;
 const { findById } = require("../models/user");
 const Validator=require("validatorjs")
+const nodemailer=require("nodemailer");
 var jwt = require('jsonwebtoken');
 let secret = process.env.JWT_SECRET
 //code here
@@ -63,7 +64,7 @@ module.exports.postLogin = async (req, res) => {
                 .status(202)
                 .json({ success: false, msg: "Lỗi quyền truy cập" });
         }
-        if (userByUsername.status === 0) {
+        if (userByEmail.status === 0) {
             return res.status(202).json({
                 success: false,
                 msg: "Lỗi truy cập. Tài khoản đã bị khóa",
@@ -243,5 +244,33 @@ module.exports.cancelOrder=async(req,res)=>{
     const orders=await Order.find({}).populate("customer");
     res.json({success:true,orders});
 };
+module.exports.postEmail=async(req,res)=>{
+    const {email}=req.body;
+    transporter= nodemailer.createTransport(//"smtps://huynhnhan199999%40gmail:Huynhnhan999@smtp.gmail.com"
+        {
+        host:"smtp.gmail.com",
+        port:465,
+        secure: true,
+        auth:{
+            user:"huynhnhan199999",
+            pass:"Huynhnhan999"
+        }
+    }
+    );
+    let mainOptions = { 
+        to: email,
+        subject: "Hello",
+        text:"send mail successfull",
+    }
+    transporter.sendMail(mainOptions,(error,info)=>{
+        if(error){
+            return res.status(201).json({ msg: error
+            })
+        }
+        return res.status(201).json({success:false,
+            msg:info
+        })
+    })
+}
 
 

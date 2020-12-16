@@ -13,6 +13,8 @@ require('dotenv').config()
 const authRouter=require("./router/authRouter");
 const profileRouter = require("./router/profileRouter")
 const productRouter=require("./router/productRouter");
+const categoryRouter=require("./router/categoryRouter");
+const sellerRouter=require("./router/sellerRouter");
 
 mongoose.connect(process.env.MONGODB_URI,{ useUnifiedTopology: true,useNewUrlParser:true },
     () => console.log('connect to db'));
@@ -22,7 +24,9 @@ const port = 3000
 app.use("/product",productRouter);
 //user
 app.use("/auth", authRouter);
-app.use("/profile",profileRouter)
+app.use("/profile",profileRouter);
+app.use("/category",categoryRouter);
+app.use("/seller",sellerRouter);
 app.listen(port, () =>{
     console.log(`Listening to port: ${port}`)
 })
