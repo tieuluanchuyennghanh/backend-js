@@ -4,7 +4,10 @@ const authController=require("../controller/authController");
 const upload = require("../multer");
 const utils = require("../utils/utils");
 
-
+router.delete("/deletecomment",authController.deleteComment)
+router.get("/comment",authController.getComment);
+router.post("/forgetpass",authController.postForgetPass);
+router.post('/callback', authController.callbackFacebook);
 router.post("/register",authController.postRegister);
 // router.get("/user", authController.getUserById);
 router.post("/login",authController.postLogin);
@@ -15,8 +18,6 @@ router.get("/cart", utils.requireRole(1), authController.getCart);
 router.post("/updateuser",authController.postUpdateUser);
 router.post("/update-cart",authController.updateCart);
 //order
-router.get("/order/add-oder",utils.requireRole(1),authController.addOrder);
-router.get("/orders",utils.requireRole(1),authController.orders);
-router.put("/orders/:/idOrder/status",utils.requireRole(1),authController.cancelOrder);
+
 router.post("/sendmail",authController.postEmail);
 module.exports = router;

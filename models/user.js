@@ -7,6 +7,7 @@ const userSchema=new mongoose.Schema({
     address: String,
     phone: String,
     groupid: Number,
+    avatar:String,
     status: {type: Number, default:1},
     comments:[
         {
@@ -21,6 +22,11 @@ const userSchema=new mongoose.Schema({
                 product:{type:mongoose.Types.ObjectId, ref:"Product"},
                 amount:Number,
             },
+    ],
+    favorites:[
+        {
+            shirt:{type:mongoose.Types.ObjectId,ref:"Product"},
+        },
     ],
 },
     {timestamps: true}

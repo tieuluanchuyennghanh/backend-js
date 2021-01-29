@@ -3,7 +3,6 @@ const router = express.Router();
 const {verifyUser}=require("./verifyUser");
 const upload = require("../multer");
 const utils = require("../utils/utils");
-const { verifyUser } = require("./verifyUser");
 const sellerController=require("../controller/sellerController")
 
 

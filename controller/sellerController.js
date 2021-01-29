@@ -3,6 +3,9 @@ const productModel= require("../models/product");
 const upload = require("../multer");
 const cloudinary = require("../cloudinary");
 const fs = require("fs");
+const moment = require('moment'); 
+const Ordermodel=require("../models/order")
+
 
 
 module.exports.postUpload= async (req,res)=>{
@@ -26,6 +29,7 @@ module.exports.postUpload= async (req,res)=>{
         images:urlsImage,
         previewImgs:urlsPreview,
         seller:sellerId,
+        createAt:moment(),
     };
     console.log(productDoc);
     const Product= new productModel(productDoc);

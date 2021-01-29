@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
-let secret = process.env.JWT_SECRET
+
 
 exports.verifyUser = (req, res, next)=>{
+    const secret = process.env.JWT_SECRET
     let accessToken = req.header("Authorization");
     if (accessToken && accessToken.startsWith("Bearer ")) {
         // Remove Bearer from string
@@ -12,8 +13,9 @@ exports.verifyUser = (req, res, next)=>{
         req.user = decoded;
         return next();
     } catch (error) {
-        return res.status(401).json({
-            message:error.message
+        console.log("here")
+        return res.json({
+            data:null
         });
     }
 }

@@ -12,6 +12,7 @@ const productSchema=new mongoose.Schema({
     images: String,
     previewImgs: Array,
     detail: String,
+    createAt:Date,
 })
 productSchema.plugin(mongoosePaginate);
 const product=mongoose.model("Product", productSchema,"products");
